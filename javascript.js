@@ -25,3 +25,11 @@ Blockly.JavaScript['roll_right'] = function(block) {
   var code = 'alert("right '+value_speed+'");';
   return code;
 };
+
+Blockly.JavaScript['number_value'] = function(block) {
+  var text_input_value = block.getFieldValue('input_value');
+  // TODO: Assemble JavaScript into code variable.
+  var code = text_input_value;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
