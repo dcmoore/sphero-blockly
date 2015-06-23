@@ -4,5 +4,4 @@
             [compojure.route :as route]))
 
 (defroutes command-handler
-  (GET "/" [] "hello")
-  (route/not-found "Not Found"))
+  (GET "/" [] "hello"))
