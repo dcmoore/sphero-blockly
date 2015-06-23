@@ -2,12 +2,14 @@
   (:require [clojure.java.io :as io]
             [compojure.core :refer :all]
             [compojure.route :as route]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            [sphero-blockly.commands.handler :refer [command-handler]]))
 
-(defroutes app-routes
+(defroutes app-handler
   (GET "/" [] (slurp (io/resource "public/index.html")))
+  (context "/command" [] command-handler)
   (route/not-found "Not Found"))
 
 (def app
-  (-> app-routes
+  (-> app-handler
     (wrap-defaults site-defaults)))
