@@ -1,5 +1,6 @@
 Blockly.JavaScript['roll_forward'] = function(block) {
-  var value_speed = Blockly.JavaScript.valueToCode(block, 'speed', Blockly.JavaScript.ORDER_ATOMIC);
+  value_speed = Blockly.JavaScript.valueToCode(block, 'speed', Blockly.JavaScript.ORDER_ATOMIC);
+
   var code = 'alert("forward '+value_speed+'");';
   return code;
 };
@@ -23,7 +24,9 @@ Blockly.JavaScript['roll_right'] = function(block) {
 };
 
 Blockly.JavaScript['number_value'] = function(block) {
-  var text_input_value = block.getFieldValue('input_value');
-  var code = text_input_value;
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var textInputValue = block.getFieldValue('input_value');
+
+  var returnBlockValue = parseInt(textInputValue);
+
+  return [returnBlockValue, Blockly.JavaScript.ORDER_NONE];
 };
