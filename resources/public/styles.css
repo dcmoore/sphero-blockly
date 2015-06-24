@@ -1,36 +1,35 @@
-body
-{
-	font-family:Arial, sans-serif;
-	font-size: 16pt;
-	background: #000;
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16pt;
+  background: #000;
 }
-p 
-{
-	line-height:24pt;
-	color:#FFF;
+
+p {
+  line-height: 24pt;
+  color: #FFF;
 }
-#header 
-{
-	color:#F00;
+
+#header {
+  color: #F00;
 }
-#blockly
-{
-	border:1px solid #CCC;
-	padding-left:0;
-	height:300px;
+
+#blockly {
+  border: 1px solid #CCC;
+  padding-left: 0;
+  height: 300px;
 }
-#blockly_editor
-{
-	width:49%;
-	float:left;
+
+#blockly_editor {
+  width: 49%;
+  float: left;
 }
-#description
-{
-	width:49%;
-	float:right;
-	margin-top:0;
+
+#description {
+  width: 49%;
+  float: right;
+  margin-top: 0;
 }
-#button_run
-{
-	margin-left:2%;
+
+#button_run {
+  margin-left: 2%;
 }

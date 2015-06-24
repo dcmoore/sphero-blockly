@@ -1,40 +1,38 @@
+<!DOCTYPE html>
 <html>
-<head>
-  <title>Sphero Page Editor</title>
-  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <head>
+    <title>Sphero Page Editor</title>
 
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <meta charset="utf-8">
 
-  <script type="text/javascript" src="blockly_inject.js"></script>
-  <script type="text/javascript" src="javascript.js"></script>
-  <script type="text/javascript" src="blocks.js"></script>
-  <script type="text/javascript" src="http_client.js"></script>
-  <script type="text/javascript" src="sphero/commander.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
 
-  <script type="text/javascript">
-    var httpClient = new HttpClient();
-    window.commander = new Commander(httpClient);
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
-    window.run_code = function() {
-      console.log("blockly_run_code " + window.Blockly);
+    <script src="blockly_inject.js"></script>
+    <script src="http_client.js"></script>
+    <script src="sphero/commander.js"></script>
 
-      code = window.Blockly.JavaScript.workspaceToCode();
+    <script>
+      window.commander = new Commander(new HttpClient());
 
-      console.log(code);
+      window.run_code = function() {
+        code = window.Blockly.JavaScript.workspaceToCode();
 
-      eval(code);
-    }
-  </script>
+        eval(code);
+      }
+    </script>
+  </head>
 
-</head>
-<body>
-  <h1 id="header">Sphero Page Editor</h1>
-  <div id="blockly_editor">
-    <!-- Blockly will be injected in the iframe below //-->
-    <iframe id="blockly" src="blockly.html" width="100%"></iframe>
-  </div>
-  <button id="button_run" onclick="run_code()">
-    Run Code Block
-  </button>
-</body>
+  <body>
+    <h1 id="header">Sphero Page Editor</h1>
+
+    <div id="blockly_editor">
+      <iframe id="blockly" src="blockly.html" width="100%"></iframe>
+    </div>
+
+    <button id="button_run" onclick="run_code()">
+      Run Code Block
+    </button>
+  </body>
 </html>

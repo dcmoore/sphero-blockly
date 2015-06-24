@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
     <script src="blockly/blockly_uncompressed.js"></script>
     <script src="blockly/generators/javascript.js"></script>
     <script src="blockly/msg/js/en.js"></script>
-    <script src="http_client.js"></script>
-    <script src="sphero/commander.js"></script>
+
     <script src="javascript.js"></script>
     <script src="blocks.js"></script>
 
@@ -19,6 +19,7 @@
         overflow: hidden;
         height: 100%;
       }
+
       .blocklySvg {
         height: 100%;
         width: 100%;
@@ -26,12 +27,13 @@
     </style>
     <script>
       function init() {
-        Blockly.inject(document.body, {toolbox: document.getElementById('toolbox')});
-        // Let the top-level application know that Blockly is ready.
+        Blockly.inject(document.body, { toolbox: document.getElementById('toolbox') });
+
         window.parent.blockly_loaded(Blockly);
       }
     </script>
   </head>
+
   <body onload="init()">
     <xml id="toolbox" style="display: none">
       <category name="Roll">
@@ -40,6 +42,7 @@
         <block type="roll_left"></block>
         <block type="roll_right"></block>
       </category>
+
       <category name="Input">
         <block type="number_value"></block>
       </category>
