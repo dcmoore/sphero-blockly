@@ -5,18 +5,13 @@
 
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
+  <script type="text/javascript" src="blockly_inject.js"></script>
   <script type="text/javascript" src="javascript.js"></script>
   <script type="text/javascript" src="blocks.js"></script>
   <script type="text/javascript" src="http_client.js"></script>
   <script type="text/javascript" src="sphero/commander.js"></script>
 
   <script type="text/javascript">
-    window.blockly_loaded = function(blockly) {
-      console.log("blockly_loaded " + blockly);
-
-      return window.Blockly = blockly;
-    }
-
     var httpClient = new HttpClient();
     window.commander = new Commander(httpClient);
 
