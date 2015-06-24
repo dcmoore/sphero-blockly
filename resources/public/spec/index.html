@@ -1,26 +1,30 @@
 <html>
   <head>
-    <link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine/jasmine_favicon.png">
-    <link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine/jasmine.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/jasmine.min.css">
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/jasmine.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/jasmine-html.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/boot.min.js"></script>
 
-    <script type="text/javascript" src="jasmine/lib/jasmine/jasmine.js"></script>
-    <script type="text/javascript" src="jasmine/lib/jasmine/jasmine-html.js"></script>
-    <script type="text/javascript" src="jasmine/lib/jasmine/boot.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
-    <script type="text/javascript" src="../blockly/blockly_uncompressed.js"></script>
-    <script type="text/javascript" src="../blockly/generators/javascript.js"></script>
-    <script type="text/javascript" src="../blockly/msg/js/en.js"></script>
-    <script type="text/javascript" src="../javascript.js"></script>
-    <script type="text/javascript" src="../blocks.js"></script>
-    <script type="text/javascript" src="../http_client.js"></script>
-    <script type="text/javascript" src="../sphero/commander.js"></script>
+    <script src="../blockly/blockly_compressed.js"></script>
+    <script src="../blockly/javascript_compressed.js"></script>
+    <script src="../blockly/msg/js/en.js"></script>
 
-    <script type="text/javascript" src="spec_helper.js"></script>
-    <script type="text/javascript" src="javascript_spec.js"></script>
-    <script type="text/javascript" src="http_client_spec.js"></script>
-    <script type="text/javascript" src="sphero/commander_spec.js"></script>
+    <script src="../common/http_client.js"></script>
+    <script src="../common/blocks/common.js"></script>
+    <script src="../common/block_generators/common.js"></script>
+
+    <script src="../sphero/commander.js"></script>
+    <script src="../sphero/blocks/roll.js"></script>
+    <script src="../sphero/block_generators/roll.js"></script>
+
+    <script src="spec_helper.js"></script>
+
+    <script src="common/block_generators/common_spec.js"></script>
+    <script src="common/http_client_spec.js"></script>
+    <script src="sphero/commander_spec.js"></script>
   </head>
   <body></body>
 </html>
