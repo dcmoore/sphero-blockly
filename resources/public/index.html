@@ -1,31 +1,45 @@
 <html>
 <head>
-	<title>Sphero Page Editor</title>
-	<link rel="stylesheet" type="text/css" href="styles.css" />
-	<!-- function that gets called once Blockly frame loads //-->
-	<script type="text/javascript">
-		window.blockly_loaded = function(blockly) {
-			console.log("blockly_loaded " + blockly);
+  <title>Sphero Page Editor</title>
+  <link rel="stylesheet" type="text/css" href="styles.css" />
 
-			return window.Blockly = blockly;
-		}
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
-		window.run_code = function() {
-			console.log("blockly_run_code " + window.Blockly);
+  <script type="text/javascript" src="javascript.js"></script>
+  <script type="text/javascript" src="blocks.js"></script>
+  <script type="text/javascript" src="http_client.js"></script>
+  <script type="text/javascript" src="sphero/commander.js"></script>
 
-			code = window.Blockly.JavaScript.workspaceToCode();
-			eval(code);
-		}
-	</script>
+  <script type="text/javascript">
+    window.blockly_loaded = function(blockly) {
+      console.log("blockly_loaded " + blockly);
+
+      return window.Blockly = blockly;
+    }
+
+    var httpClient = new HttpClient();
+    window.commander = new Commander(httpClient);
+
+    window.run_code = function() {
+      console.log("blockly_run_code " + window.Blockly);
+
+      code = window.Blockly.JavaScript.workspaceToCode();
+
+      console.log(code);
+
+      eval(code);
+    }
+  </script>
+
 </head>
 <body>
-	<h1 id="header">Sphero Page Editor</h1>
-	<div id="blockly_editor">
-		<!-- Blockly will be injected in the iframe below //-->
-		<iframe id="blockly" src="blockly.html" width="100%"></iframe>
-	</div>
-	<button id="button_run" onclick="run_code()">
-		Run Code Block
-	</button>
+  <h1 id="header">Sphero Page Editor</h1>
+  <div id="blockly_editor">
+    <!-- Blockly will be injected in the iframe below //-->
+    <iframe id="blockly" src="blockly.html" width="100%"></iframe>
+  </div>
+  <button id="button_run" onclick="run_code()">
+    Run Code Block
+  </button>
 </body>
 </html>
