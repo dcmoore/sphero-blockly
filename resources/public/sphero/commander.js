@@ -1,5 +1,6 @@
 function Commander(httpClient) {
-  this.httpClient = httpClient;
+  this.objectSerializer = new ObjectSerializer();
+  this.httpClient       = httpClient;
 
   return this;
 }
@@ -21,5 +22,5 @@ Commander.prototype.right = function(options) {
 }
 
 Commander.prototype.sendCommand = function(commandName, options) {
-  this.httpClient.get("/command/" + commandName + "?speed=" + options.speed);
+  this.httpClient.get("/command/" + commandName + this.objectSerializer.serialize(options));
 }
