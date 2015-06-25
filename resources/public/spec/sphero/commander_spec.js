@@ -1,4 +1,4 @@
-describe("Commander", function() {
+describe("Sphero.Commander", function() {
 
   var httpClient;
   var commander;

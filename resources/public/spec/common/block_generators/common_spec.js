@@ -1,4 +1,4 @@
-describe("Blockly.Javascript", function() {
+describe("Common.BlockGenerators.Common", function() {
   describe("#number_value", function() {
 
     var numberValueBlock;
@@ -13,13 +13,13 @@ describe("Blockly.Javascript", function() {
     it("pulls the input_value field from the block", function() {
       spyOn(numberValueBlock, "getFieldValue");
 
-     numberValueBlockEvaluator(numberValueBlock);
+      numberValueBlockEvaluator(numberValueBlock);
 
       expect( numberValueBlock.getFieldValue ).toHaveBeenCalledWith('input_value');
     })
 
     it("converts the blocks input to an integer if its a string", function() {
-      spyOn(numberValueBlock, "getFieldValue").and.returnValue('10');
+      numberValueBlock = new MockValueBlock('10');
 
       var returnedValue = numberValueBlockEvaluator(numberValueBlock);
 

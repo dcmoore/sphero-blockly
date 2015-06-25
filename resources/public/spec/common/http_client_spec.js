@@ -1,4 +1,4 @@
-describe("HttpClient", function() {
+describe("Common.HttpClient", function() {
 
   var httpClient;
 

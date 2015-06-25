@@ -6,5 +6,14 @@ window.mock = function( constr, name ) {
   return keys.length > 0 ? jasmine.createSpyObj( name || "mock", keys ) : {};
 };
 
-var MockValueBlock = function() {};
-MockValueBlock.prototype.getFieldValue = function(fieldName) {};
+var MockValueBlock = function() {
+  this.value = null;
+};
+
+var MockValueBlock = function(value) {
+  this.value = value;
+};
+
+MockValueBlock.prototype.getFieldValue = function(fieldName) {
+  return this.value;
+};
