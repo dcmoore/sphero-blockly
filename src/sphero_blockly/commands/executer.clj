@@ -19,9 +19,13 @@
 
 (defn move-direction [direction speed distance]
   (ensure-connection)
-  (let [distance (* (read-string distance) 100)
+  (let [distance (read-string distance)
+        distance (if (< 11 distance) 10 distance)
+        distance (* distance 1000)
+        distance (if (= :forward direction) distance (+ 150 distance))
         speed (read-string speed)
-        speed (if (< speed 256) speed 255)
+        speed (int (* speed 2.55))
+        speed (if (< 256 speed) 255 speed)
         direction (numeric-direction direction)]
     (commands/execute @sphero (commands/roll speed direction))
     (Thread/sleep distance)
