@@ -6,7 +6,9 @@
 
 (defn- ensure-connection []
   (when (nil? @sphero)
-    (reset! sphero (core/connect "/dev/tty.Sphero-GYG-AMP-SPP"))))
+    (let [sphero-path (System/getenv "SPHERO_PATH")]
+      (prn (str "Attempting to connect to: " sphero-path))
+      (reset! sphero (core/connect sphero-path)))))
 
 (defn- numeric-direction [direction]
   (case direction
