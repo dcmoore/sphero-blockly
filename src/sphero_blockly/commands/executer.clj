@@ -25,4 +25,5 @@
         direction (numeric-direction direction)]
     (commands/execute @sphero (commands/roll speed direction))
     (Thread/sleep distance)
-    (commands/execute @sphero (commands/roll 0 0))))
+    (commands/execute @sphero (commands/roll 0 0))
+    (Thread/sleep 1000)))
