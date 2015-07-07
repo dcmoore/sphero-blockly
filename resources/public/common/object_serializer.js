@@ -8,5 +8,8 @@ ObjectSerializer.prototype.serialize = function(objectToSerialize) {
       parts.push(encodeURIComponent(p) + "=" + encodeURIComponent(objectToSerialize[p]));
     }
 
-  return "?" + parts.join("&");
+  if (parts.length > 0) {
+    return "?" + parts.join("&");
+  }
+  return '';
 }

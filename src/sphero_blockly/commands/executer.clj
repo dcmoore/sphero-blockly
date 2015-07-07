@@ -8,7 +8,10 @@
   (when (nil? @sphero)
     (let [sphero-path (System/getenv "SPHERO_PATH")]
       (prn (str "Attempting to connect to: " sphero-path))
-      (reset! sphero (core/connect sphero-path)))))
+      (reset! sphero (core/connect sphero-path))
+      (commands/execute @sphero (commands/back-led 0xff))
+      (commands/execute @sphero (commands/colour 0xFF007F))
+      sphero)))
 
 (defn- numeric-direction [direction]
   (case direction
@@ -31,3 +34,12 @@
     (Thread/sleep distance)
     (commands/execute @sphero (commands/roll 0 0))
     (Thread/sleep 1000)))
+
+(defn reset-heading []
+  (ensure-connection)
+  (commands/execute @sphero (commands/colour 0x000000))
+  (commands/execute @sphero (commands/stabilization false))
+  (Thread/sleep 5000)
+  (commands/execute @sphero (commands/heading 0))
+  (commands/execute @sphero (commands/stabilization true))
+  (commands/execute @sphero (commands/colour 0xFF007F)))
