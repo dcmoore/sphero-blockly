@@ -6,31 +6,29 @@
             [sphero-blockly.commands.handler :refer :all]
             [sphero-blockly.test-helper :refer [mock-fn]]))
 
+(def move-direction-invocations (atom []))
+(defmacro with-setup-testing [docstring test-body]
+  `(reset! move-direction-invocations [])
+  `(with-redefs [move-direction (mock-fn move-direction-invocations "{}")]
+    (testing `docstring `test-body)))
+
 (deftest test-app
-  (testing "forward"
-    (let [move-direction-invocations (atom [])]
-      (with-redefs [move-direction (mock-fn move-direction-invocations "{}")]
-        (let [response (command-handler (assoc (mock/request :get "/forward") :params {:speed "1" :distance "2"}))]
-          (is (= (:status response) 200))
-          (is (= @move-direction-invocations [[:forward "1" "2"]]))))))
+  (with-setup-testing "forward"
+    (let [response (command-handler (assoc (mock/request :get "/forward") :params {:speed "1" :distance "2"}))]
+      (is (= (:status response) 200))
+      (is (= @move-direction-invocations [[:forward "1" "2"]]))))
 
-  (testing "reverse"
-    (let [move-direction-invocations (atom [])]
-      (with-redefs [move-direction (mock-fn move-direction-invocations "{}")]
-        (let [response (command-handler (assoc (mock/request :get "/reverse") :params {:speed "5040" :distance "23"}))]
-          (is (= (:status response) 200))
-          (is (= @move-direction-invocations [[:reverse "5040" "23"]]))))))
+  (with-setup-testing "reverse"
+    (let [response (command-handler (assoc (mock/request :get "/reverse") :params {:speed "5040" :distance "23"}))]
+      (is (= (:status response) 200))
+      (is (= @move-direction-invocations [[:reverse "5040" "23"]]))))
 
-  (testing "left"
-    (let [move-direction-invocations (atom [])]
-      (with-redefs [move-direction (mock-fn move-direction-invocations "{}")]
-        (let [response (command-handler (assoc (mock/request :get "/left") :params {:speed "11" :distance "7"}))]
-          (is (= (:status response) 200))
-          (is (= @move-direction-invocations [[:left "11" "7"]]))))))
+  (with-setup-testing "left"
+    (let [response (command-handler (assoc (mock/request :get "/left") :params {:speed "11" :distance "7"}))]
+      (is (= (:status response) 200))
+      (is (= @move-direction-invocations [[:left "11" "7"]]))))
 
-  (testing "right"
-    (let [move-direction-invocations (atom [])]
-      (with-redefs [move-direction (mock-fn move-direction-invocations "{}")]
-        (let [response (command-handler (assoc (mock/request :get "/right") :params {:speed "5318008" :distance "07734"}))]
-          (is (= (:status response) 200))
-          (is (= @move-direction-invocations [[:right "5318008" "07734"]])))))))
+  (with-setup-testing "right"
+    (let [response (command-handler (assoc (mock/request :get "/right") :params {:speed "5318008" :distance "07734"}))]
+      (is (= (:status response) 200))
+      (is (= @move-direction-invocations [[:right "5318008" "07734"]])))))
