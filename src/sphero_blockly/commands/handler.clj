@@ -6,8 +6,8 @@
 
 (defn- move [direction request]
   (move-direction direction
-                  (:speed (:params request))
-                  (:distance (:params request))))
+                  (read-string (:speed (:params request)))
+                  (read-string (:distance (:params request)))))
 
 (def success-response {:status 200 :body "Great job!!"})
 
