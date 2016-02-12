@@ -1,6 +1,7 @@
 (ns sphero-blockly.commands.executer
   (:require [ellipso.core :as core]
-            [ellipso.commands :as commands]))
+            [ellipso.commands :as commands]
+            [sphero-blockly.utils :refer [zzz ensure-connection]]))
 
 (def sphero (atom nil))
 
@@ -11,15 +12,6 @@
 (def speed-modifier 2.55)
 
 (def one-second 1000)
-
-(defn- ensure-connection []
-  (when (nil? @sphero)
-    (let [sphero-path (System/getenv "SPHERO_PATH")]
-      (prn (str "Attempting to connect to: " sphero-path))
-      (reset! sphero (core/connect sphero-path))
-      (commands/execute @sphero (commands/back-led 0xff))
-      (commands/execute @sphero (commands/colour 0xFF007F))
-      sphero)))
 
 (defn direction-offset [direction]
   (if (= direction :forward) 0 150))
@@ -42,11 +34,11 @@
   (+ distance (direction-offset direction)))
 
 (defn roll [speed direction distance]
-  ;; (ensure-connection)
+  (ensure-connection sphero)
   (commands/execute @sphero (commands/roll speed direction))
-  (Thread/sleep distance)
+  (zzz distance)
   (commands/execute @sphero (commands/roll 0 0))
-  (Thread/sleep one-second))
+  (zzz one-second))
 
 (defn move-direction [direction speed distance]
   (roll
@@ -56,10 +48,10 @@
       (calculate-distance distance) direction)))
 
 (defn reset-heading []
-  ;; (ensure-connection)
+  (ensure-connection sphero)
   (commands/execute @sphero (commands/colour 0x000000))
   (commands/execute @sphero (commands/stabilization false))
-  (Thread/sleep 5000)
+  (zzz 5000)
   (commands/execute @sphero (commands/heading 0))
   (commands/execute @sphero (commands/stabilization true))
   (commands/execute @sphero (commands/colour 0xFF007F)))

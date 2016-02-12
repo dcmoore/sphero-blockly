@@ -1,6 +1,7 @@
 (ns sphero-blockly.commands.executer-test
   (:require [clojure.test :refer :all]
             [ellipso.commands :as commands]
+            [sphero-blockly.utils :refer [zzz ensure-connection]]
             [sphero-blockly.commands.executer :refer [
                calculate-distance calculate-speed
                numeric-direction move-direction roll
@@ -20,6 +21,16 @@
   (let [command { :speed speed :direction direction }]
     (swap! command-roll-executions conj command)
     command))
+
+(defmacro cant-sleep-wont-sleep [body]
+  `(with-redefs [zzz (fn [& _#])]
+    ~body))
+
+(defmacro ensures-sphero-is-connected [body]
+  `(let [ensure-connection-called# (atom nil)]
+    (with-redefs [ensure-connection #(reset! ensure-connection-called# %)]
+      ~body
+      (is (= (nil? @ensure-connection-called#) false)))))
 
 (deftest calculates-correct-numeric-direction
   (testing "forward"
@@ -55,16 +66,18 @@
 
 (deftest executes-move-command
   (testing "tells sphero to move with calculated values"
-    (with-redefs [roll capture-roll-execution]
-      (move-direction :forward 100 10)
-      (is (= { :speed 254 :direction 0 :distance 10000 }
-             (first @roll-executions))))))
+    (cant-sleep-wont-sleep
+      (with-redefs [roll capture-roll-execution]
+        (move-direction :forward 100 10)
+        (is (= { :speed 254 :direction 0 :distance 10000 }
+               (first @roll-executions)))))))
 
 (deftest tells-the-sphero-to-move
   (testing "tells sphere to move with calculated values"
-    (with-redefs [commands/execute capture-command-execution
-                  commands/roll    capture-command-roll-executions]
-      (move-direction :forward 100 10)
-      (is (= { :sphero nil :command { :speed 254 :direction 0} }
-             (first @command-executions))))))
-
+    (cant-sleep-wont-sleep
+      (ensures-sphero-is-connected
+        (with-redefs [commands/execute capture-command-execution
+                      commands/roll    capture-command-roll-executions]
+          (move-direction :forward 100 10)
+          (is (= { :sphero nil :command { :speed 254 :direction 0} }
+                 (first @command-executions))))))))
