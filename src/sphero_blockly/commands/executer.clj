@@ -1,7 +1,7 @@
 (ns sphero-blockly.commands.executer
   (:require [ellipso.core :as core]
             [ellipso.commands :as commands]
-            [sphero-blockly.utils :refer [zzz ensure-connection]]))
+            [sphero-blockly.utils :refer [sleep ensure-connection]]))
 
 (def sphero (atom nil))
 
@@ -36,9 +36,9 @@
 (defn roll [speed direction distance]
   (ensure-connection sphero)
   (commands/execute @sphero (commands/roll speed direction))
-  (zzz distance)
+  (sleep distance)
   (commands/execute @sphero (commands/roll 0 0))
-  (zzz one-second))
+  (sleep one-second))
 
 (defn move-direction [direction speed distance]
   (roll
@@ -51,8 +51,7 @@
   (ensure-connection sphero)
   (commands/execute @sphero (commands/colour 0x000000))
   (commands/execute @sphero (commands/stabilization false))
-  (zzz 5000)
+  (sleep 5000)
   (commands/execute @sphero (commands/heading 0))
   (commands/execute @sphero (commands/stabilization true))
   (commands/execute @sphero (commands/colour 0xFF007F)))
-

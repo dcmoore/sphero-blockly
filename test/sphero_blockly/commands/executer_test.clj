@@ -1,7 +1,7 @@
 (ns sphero-blockly.commands.executer-test
   (:require [clojure.test :refer :all]
             [ellipso.commands :as commands]
-            [sphero-blockly.utils :refer [zzz ensure-connection]]
+            [sphero-blockly.utils :refer [sleep ensure-connection]]
             [sphero-blockly.commands.executer :refer [
                calculate-distance calculate-speed
                numeric-direction move-direction roll
@@ -23,7 +23,7 @@
     command))
 
 (defmacro cant-sleep-wont-sleep [body]
-  `(with-redefs [zzz (fn [& _#])]
+  `(with-redefs [sleep (fn [& _#])]
     ~body))
 
 (defmacro ensures-sphero-is-connected [body]

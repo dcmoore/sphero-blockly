@@ -2,7 +2,7 @@
   (:require [ellipso.core :as core]
             [ellipso.commands :as commands]))
 
-(defn zzz [sleepy-time]
+(defn sleep [sleepy-time]
   (Thread/sleep sleepy-time))
 
 (defn ensure-connection [sphero]
