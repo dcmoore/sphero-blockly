@@ -13,31 +13,67 @@
     <script src="common/http_client.js"></script>
     <script src="common/object_serializer.js"></script>
     <script src="sphero/commander.js"></script>
-
-    <script>
-      window.commander = new Commander(new HttpClient());
-
-      window.run_code = function() {
-        code = window.Blockly.JavaScript.workspaceToCode();
-
-        eval(code);
-      }
-    </script>
   </head>
 
   <body>
-    <h1 id="header">Sphero Page Editor</h1>
+    <h1 id="header">Sphero Code Editor</h1>
 
     <div id="blockly_editor">
       <iframe id="blockly" src="blockly.html" width="100%"></iframe>
+
+      <div id="actions">
+        <div class="button-group">
+          <button id="run_code">Run Code Block</button>
+          <button id="set_heading">Set Heading</button>
+        </div>
+        <div class="button-group">
+          <button id="save">Save</button>
+          <button id="load">Load</button>
+        </div>
+      </div>
     </div>
 
-    <button id="button_run" onclick="run_code()">
-      Run Code Block
-    </button>
-    <button id="set_heading" onclick="commander.resetHeading()">
-      Set Heading
-    </button>
-  </body>
+    <script>
+      var commander = new Commander(new HttpClient());
+
+      var setHeading = document.getElementById("set_heading");
+      var runCode = document.getElementById("run_code");
+      var save = document.getElementById("save");
+      var load = document.getElementById("load");
+
+      setHeading.onclick = function() {
+        commander.resetHeading();
+      }
+
+      runCode.onclick = function() {
+        var jsCode = window.Blockly.JavaScript.workspaceToCode();
+
+        eval(jsCode);
+      }
+
+      save.onclick = function() {
+        var workspace = Blockly.getMainWorkspace();
+        var xml = Blockly.Xml.workspaceToDom(workspace);
+
+        localStorage.setItem('xml', serialize(xml));
+      }
+
+      load.onclick = function() {
+        var workspace = Blockly.getMainWorkspace();
+        var xml = parse(localStorage.getItem('xml'));
+
+        workspace.clear();
+
+        Blockly.Xml.domToWorkspace(workspace, xml)
+      }
+
+      function serialize(xml) {
+        return (new XMLSerializer()).serializeToString(xml);
+      }
+
+      function parse(string) {
+        return (new DOMParser()).parseFromString(string, "text/xml").firstChild;
+      }
+    </script>
   </body>
 </html>
