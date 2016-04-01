@@ -3,6 +3,7 @@ pom.xml.asc
 /lib/
 /classes/
 /checkouts/
+target/*
 .lein-deps-sum
 .lein-repl-history
 .lein-plugins/
