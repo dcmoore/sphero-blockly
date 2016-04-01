@@ -21,6 +21,10 @@ Commander.prototype.right = function(options) {
   this.sendCommand("right", options);
 }
 
+Commander.prototype.resetHeading = function(options) {
+  this.sendCommand("reset-heading", options);
+}
+
 Commander.prototype.sendCommand = function(commandName, options) {
   this.httpClient.get("/command/" + commandName + this.objectSerializer.serialize(options));
 }

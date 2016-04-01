@@ -43,6 +43,14 @@ describe("Sphero.Commander", function() {
     })
   })
 
+  describe("#reset-heading", function() {
+    it("sends a http request to the server with the reset-heading command", function() {
+      commander.resetHeading();
+
+      expect( httpClient.get ).toHaveBeenCalledWith("/command/reset-heading");
+    })
+  })
+
   describe("#sendCommand", function() {
     it("sends a http request to the server with the given command and given options", function() {
       commander.sendCommand("left", { speed: 10, distance: 20 });

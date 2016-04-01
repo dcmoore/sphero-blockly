@@ -9,5 +9,11 @@ describe("Common.ObjectSerializer", function() {
 
       expect( queryParams ).toEqual("?speed=10&distance=20");
     })
+
+    it("doesn't add a question mark if there isn't any query params", function() {
+      queryParams = new ObjectSerializer().serialize(null);
+
+      expect( queryParams ).toEqual("");
+    })
   })
 })
